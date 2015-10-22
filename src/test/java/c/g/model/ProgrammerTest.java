@@ -19,6 +19,7 @@ public class ProgrammerTest {
 
         Controller c = new Controller();
         c.start(programmers);
+        Thread.sleep(1000000);
 
     }
 }

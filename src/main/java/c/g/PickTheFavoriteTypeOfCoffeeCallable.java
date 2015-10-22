@@ -35,6 +35,7 @@ public class PickTheFavoriteTypeOfCoffeeCallable implements Callable<Programmer>
         Thread.sleep(PICK_THE_FAVORITE_TYPE_OF_COFFEE);
 
         Pay p = new Pay(programmer);
+        payExecutor.submit(p);
 
         return programmer;
     }

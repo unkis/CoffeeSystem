@@ -19,6 +19,9 @@ public class FindAndPickup implements Callable<Programmer> {
 
     private Programmer programmer;
 
+    public FindAndPickup(Programmer programmer) {
+        this.programmer = programmer;
+    }
 
     @Override
     public Programmer call() throws InterruptedException {
@@ -31,6 +34,7 @@ public class FindAndPickup implements Callable<Programmer> {
 
 
         Thread.sleep(FIND_CUP + PUT_IT + PICK_THE_TYPE_OF_COFFEE + coffeeTypeDuration + TAKE_A_CUP);
+        System.out.println("Complate = " + programmer+" \texecution time = "+(System.currentTimeMillis()-programmer.getStartTrime()));
         return programmer;
 
 

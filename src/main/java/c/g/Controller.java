@@ -16,7 +16,7 @@ public class Controller {
 
     ExecutorService pickTheFavoriteTypeOfCoffeeExecutor = Executors.newFixedThreadPool(10);
 
-    ExecutorService findAndPickupExecutor = Executors.newFixedThreadPool(2);
+
 
 
     public Controller(){
@@ -36,23 +36,23 @@ public class Controller {
             //pickTheFavoriteTypeOfCoffeeCallableList.add(pickTheFavoriteTypeOfCoffee);
         });
 
-        int count = programmers.size();
-        while (count!=0){
-
-        }
-
-        pickTheFavoriteTypeOfCoffeeExecutor.invokeAll(pickTheFavoriteTypeOfCoffeeCallableList).stream()
-                .map(future -> {
-                    try {
-                        return future.get();
-                    } catch (Exception e) {
-                        throw new IllegalStateException(e);
-                    }
-                })
-                .forEach(programmer -> {
-                    System.out.println("programmer = " + programmer+" \texecution time = "+(System.currentTimeMillis()-programmer.getStartTrime()));
-                });
-
+//        int count = programmers.size();
+//        while (count!=0){
+//
+//        }
+//
+//        pickTheFavoriteTypeOfCoffeeExecutor.invokeAll(pickTheFavoriteTypeOfCoffeeCallableList).stream()
+//                .map(future -> {
+//                    try {
+//                        return future.get();
+//                    } catch (Exception e) {
+//                        throw new IllegalStateException(e);
+//                    }
+//                })
+//                .forEach(programmer -> {
+//                    System.out.println("programmer = " + programmer+" \texecution time = "+(System.currentTimeMillis()-programmer.getStartTrime()));
+//                });
+//
     }
 
 }

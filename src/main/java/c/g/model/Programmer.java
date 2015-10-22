@@ -10,7 +10,9 @@ import java.util.Random;
 public class Programmer {
 
 
-    private long startTrime;
+    private long executionStartTime;
+    private long executionEndTime;
+
 
     private long id;
 
@@ -35,22 +37,20 @@ public class Programmer {
         for (int i = 0; i <numberOfProgrammers ; i++) {
             CoffeeType coffeeType = CoffeeType.generateRandomCoffeeType(r);
             PaymentType paymentType = PaymentType.generateRandomPaymentType(r);
-            long id = generateRandomProgrammerId(r);
 
-            Programmer p = createProgrammer(id, coffeeType, paymentType);
+
+            Programmer p = createProgrammer(i, coffeeType, paymentType);
             programmers.add(p);
         }
 
         return programmers;
     }
 
-    public static long generateRandomProgrammerId(Random r){
-        long lowerLimit = 0L;
-        long upperLimit = 100000000L;
-        long id = lowerLimit+((long)(r.nextDouble()*(upperLimit-lowerLimit)));
 
-        return id;
+    public long getExecutionTime(){
+        return executionEndTime- executionStartTime;
     }
+
 
 
     public long getId() {
@@ -65,18 +65,28 @@ public class Programmer {
         return paymentType;
     }
 
-    public long getStartTrime() {
-        return startTrime;
+    public long getExecutionStartTime() {
+        return executionStartTime;
     }
 
-    public void setStartTrime(long startTrime) {
-        this.startTrime = startTrime;
+    public void setExecutionStartTime(long executionStartTime) {
+        this.executionStartTime = executionStartTime;
+    }
+
+    public long getExecutionEndTime()
+    {
+        return executionEndTime;
+    }
+
+    public void setExecutionEndTime(final long executionEndTime)
+    {
+        this.executionEndTime = executionEndTime;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Programmer{");
-        sb.append("startTrime=").append(startTrime);
+        sb.append("executionStartTime=").append(executionStartTime);
         sb.append(", id=").append(id);
         sb.append(", coffeeType=").append(coffeeType);
         sb.append(", paymentType=").append(paymentType);

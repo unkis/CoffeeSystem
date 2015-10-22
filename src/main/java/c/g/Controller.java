@@ -1,22 +1,26 @@
 package c.g;
 
 import c.g.model.Programmer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by ybarvenko on 22.10.2015.
  */
 public class Controller {
 
-    ExecutorService pickTheFavoriteTypeOfCoffeeExecutor = Executors.newFixedThreadPool(10);
+    private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
-
+    public static final ExecutorService pickTheFavoriteTypeOfCoffeeExecutor = Executors.newFixedThreadPool(10);
+    public static final ExecutorService payExecutor = Executors.newFixedThreadPool(5);
+    private static final ExecutorService findAndPickupExecutor = Executors.newFixedThreadPool(2);
+    public static final CompletionService<Programmer> findAndPickupExecutorCompletionService= new ExecutorCompletionService<>(findAndPickupExecutor );
 
 
     public Controller(){
@@ -24,35 +28,32 @@ public class Controller {
     }
 
 
-    public void start(Collection<Programmer> programmers) throws InterruptedException {
+    public void start() throws InterruptedException, ExecutionException
+    {
+
+        Collection<Programmer> programmers = Programmer.createRandomProgrammers(10, 24335L);
 
 
         List<Callable<Programmer>> pickTheFavoriteTypeOfCoffeeCallableList = new ArrayList<>();
 
         programmers.forEach(programmer -> {
-            PickTheFavoriteTypeOfCoffeeCallable pickTheFavoriteTypeOfCoffee = new PickTheFavoriteTypeOfCoffeeCallable(programmer);
-            programmer.setStartTrime(System.currentTimeMillis());
+            PickTheFavoriteTypeOfCoffeeProcess pickTheFavoriteTypeOfCoffee = new PickTheFavoriteTypeOfCoffeeProcess(programmer);
+            programmer.setExecutionStartTime(System.currentTimeMillis());
             pickTheFavoriteTypeOfCoffeeExecutor.submit(pickTheFavoriteTypeOfCoffee);
-            //pickTheFavoriteTypeOfCoffeeCallableList.add(pickTheFavoriteTypeOfCoffee);
         });
 
-//        int count = programmers.size();
-//        while (count!=0){
-//
-//        }
-//
-//        pickTheFavoriteTypeOfCoffeeExecutor.invokeAll(pickTheFavoriteTypeOfCoffeeCallableList).stream()
-//                .map(future -> {
-//                    try {
-//                        return future.get();
-//                    } catch (Exception e) {
-//                        throw new IllegalStateException(e);
-//                    }
-//                })
-//                .forEach(programmer -> {
-//                    System.out.println("programmer = " + programmer+" \texecution time = "+(System.currentTimeMillis()-programmer.getStartTrime()));
-//                });
-//
+
+        for (int i=0; i<programmers.size(); i++) {
+
+            Programmer programmer = findAndPickupExecutorCompletionService.take().get();
+            LOG.info(String.format("Complete = %s \texecution time = %s ms.", programmer, programmer.getExecutionTime()));
+
+        }
+
+        pickTheFavoriteTypeOfCoffeeExecutor.shutdown();
+        payExecutor.shutdown();
+        findAndPickupExecutor.shutdown();
+
     }
 
 }

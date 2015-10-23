@@ -17,16 +17,23 @@ public class CoffeeSystemController {
     private static final Logger LOG = LoggerFactory.getLogger(CoffeeSystemController.class);
 
     //init executors
-    public static final ExecutorService pickTheFavoriteTypeOfCoffeeExecutor = Executors.newFixedThreadPool(10);
-    public static final ExecutorService paymentProcessExecutor = Executors.newFixedThreadPool(5);
-    private static final ExecutorService findAndPickupExecutor = Executors.newFixedThreadPool(2);
-    public static final CompletionService<Programmer> findAndPickupExecutorCompletionService= new ExecutorCompletionService<>(findAndPickupExecutor );
+    public static ExecutorService pickTheFavoriteTypeOfCoffeeExecutor;
+    public static ExecutorService paymentProcessExecutor;
+    private static  ExecutorService findAndPickupExecutor;
+    public static CompletionService<Programmer> findAndPickupExecutorCompletionService;
 
+    public CoffeeSystemController()
+    {
+        pickTheFavoriteTypeOfCoffeeExecutor = Executors.newFixedThreadPool(10);
+        paymentProcessExecutor = Executors.newFixedThreadPool(5);
+        findAndPickupExecutor = Executors.newFixedThreadPool(2);
+        findAndPickupExecutorCompletionService = new ExecutorCompletionService<>(findAndPickupExecutor);
+    }
 
     public void start(int numberOfProgrammers) throws InterruptedException, ExecutionException
     {
 
-        LOG.info(String.format("The coffee system with %s programmers is running... . Please wait.... .\nFor mor Information you can change the logging-level to DEBUG in logback.xml file.",numberOfProgrammers));
+        LOG.info(String.format("The coffee system with %s programmers is running... . Please wait.... .\nFor mor Information you can change the logging-level to DEBUG in logback.xml file.\n",numberOfProgrammers));
 
 
         // Generate programmer
@@ -66,8 +73,8 @@ public class CoffeeSystemController {
         LOG.info(String.format("Time to getting a coffee of average programmer: %s ms.",stats.getAverage()));
         LOG.info(String.format("Fastest time to getting a coffee: %s ms.",stats.getMin()));
         LOG.info(String.format("Slowest time to getting a coffee: %s ms.",stats.getMax()));
+        LOG.info(CoffeeSystemResult.getResultInfo());
 
-        System.out.println(CoffeeSystemResult.getResultInfo());
 
     }
 

@@ -1,6 +1,6 @@
-package com.goodgamestudios;
+package com.goodgamestudios.process;
 
-import com.goodgamestudios.model.CoffeeSystemProcess;
+import com.goodgamestudios.CoffeeSystemController;
 import com.goodgamestudios.model.Programmer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,12 +8,12 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by ybarvenko on 22.10.2015.
  */
-public class PayProcess extends CoffeeSystemProcess
+public class PaymentProcess extends CoffeeSystemProcess
 {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PayProcess.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PaymentProcess.class);
 
-    public PayProcess(final Programmer programmer)
+    public PaymentProcess(final Programmer programmer)
     {
         super(programmer);
     }
@@ -23,28 +23,25 @@ public class PayProcess extends CoffeeSystemProcess
     public Programmer call() throws Exception
     {
         pay();
-
         return programmer;
-
     }
 
-
-    protected void pay() {
+    protected void pay() throws InterruptedException {
 
         try {
 
             long duration = programmer.getPaymentType().getDuration();
 
-
             LOG.debug(String.format("Programmer %s paying with %s ... (duration: %s ms.) ",programmer.getId(),programmer.getPaymentType().getName(), duration));
             Thread.sleep(duration);
 
             FindAndPickupProcess f = new FindAndPickupProcess(programmer);
-            Controller.findAndPickupExecutorCompletionService.submit(f);
+            CoffeeSystemController.findAndPickupExecutorCompletionService.submit(f);
             programmer.getPaymentType().paymentFinish();
 
         } catch (InterruptedException e) {
             LOG.error("Error in pay process: "+programmer,e);
+            throw e;
         }
 
     }

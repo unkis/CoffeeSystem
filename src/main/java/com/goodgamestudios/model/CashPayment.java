@@ -15,7 +15,7 @@ public class CashPayment extends PaymentType
 	@Override
 	protected void calcSoldPerPayment()
 	{
-		SoldCoffee.soldCoffeeCash.incrementAndGet();
+		CoffeeSystemResult.soldCoffeeCash.incrementAndGet();
 
 	}
 

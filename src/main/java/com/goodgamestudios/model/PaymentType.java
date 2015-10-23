@@ -17,7 +17,7 @@ public abstract class PaymentType
 
 	private void calcTotalSold()
 	{
-		SoldCoffee.soldCoffeeTotal.incrementAndGet();
+		CoffeeSystemResult.soldCoffeeTotal.incrementAndGet();
 	}
 
 	protected abstract void calcSoldPerPayment();

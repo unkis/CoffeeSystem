@@ -15,7 +15,7 @@ public class CreditPayment extends PaymentType
 	@Override
 	protected void calcSoldPerPayment()
 	{
-		SoldCoffee.soldCoffeeCredit.incrementAndGet();
+		CoffeeSystemResult.soldCoffeeCredit.incrementAndGet();
 	}
 
 	@Override

@@ -1,4 +1,6 @@
-package com.goodgamestudios.model;
+package com.goodgamestudios.process;
+
+import com.goodgamestudios.model.Programmer;
 
 import java.util.concurrent.Callable;
 

@@ -1,18 +1,17 @@
-package com.goodgamestudios;
+package com.goodgamestudios.process;
 
+import com.goodgamestudios.model.CoffeeSystemResult;
 import com.goodgamestudios.model.Programmer;
-import com.goodgamestudios.model.SoldCoffee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 /**
  * Created by ybarvenko on 22.10.2015.
  */
-public class FindAndPickupProcess implements Callable<Programmer> {
+public class FindAndPickupProcess extends CoffeeSystemProcess {
 
     private static final Logger LOG = LoggerFactory.getLogger(FindAndPickupProcess.class);
     private static final long FIND_CUP = 250L;
@@ -20,12 +19,8 @@ public class FindAndPickupProcess implements Callable<Programmer> {
     private static final long PICK_THE_TYPE_OF_COFFEE = 250L;
     private static final long TAKE_A_CUP = 250L;
 
-
-
-    private Programmer programmer;
-
     public FindAndPickupProcess(Programmer programmer) {
-        this.programmer = programmer;
+        super(programmer);
     }
 
     @Override
@@ -53,11 +48,11 @@ public class FindAndPickupProcess implements Callable<Programmer> {
 
 
     private void countDispensedCoffeeByMachine(Thread thread, String coffeeType){
-        Map<String, Integer> stringIntegerMap = SoldCoffee.dispensedCoffeeByMachineMap.get(thread);
+        Map<String, Integer> stringIntegerMap = CoffeeSystemResult.dispensedCoffeeByMachineMap.get(thread);
         if(stringIntegerMap==null)
         {
             stringIntegerMap = new HashMap<>();
-            SoldCoffee.dispensedCoffeeByMachineMap.put(thread,stringIntegerMap);
+            CoffeeSystemResult.dispensedCoffeeByMachineMap.put(thread,stringIntegerMap);
         }
 
         Integer count = stringIntegerMap.get(coffeeType);

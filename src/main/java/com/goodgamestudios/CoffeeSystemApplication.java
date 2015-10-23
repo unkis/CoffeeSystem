@@ -7,13 +7,24 @@ public class CoffeeSystemApplication {
     public static void main(String[] args) throws InterruptedException, ExecutionException
     {
         {
-            CoffeeSystemController coffeeSystemController = new CoffeeSystemController();
-            coffeeSystemController.start(10);
+            CoffeeSystemController coffeeSystemController = CoffeeSystemController.getInstance();
+            coffeeSystemController.printMeasure(coffeeSystemController.start(100));
+
         }
         {
-            CoffeeSystemController coffeeSystemController = new CoffeeSystemController();
-            coffeeSystemController.start(20);
+            CoffeeSystemController coffeeSystemController = CoffeeSystemController.getInstance();
+            coffeeSystemController.printMeasure(coffeeSystemController.start(200));
         }
+        {
+            CoffeeSystemController coffeeSystemController = CoffeeSystemController.getInstance();
+            coffeeSystemController.printMeasure(coffeeSystemController.start(500));
+        }
+        {
+            CoffeeSystemController coffeeSystemController = CoffeeSystemController.getInstance();
+            coffeeSystemController.printMeasure(coffeeSystemController.start(1000));
+        }
+
+        CoffeeSystemController.getInstance().shutdownExecutors();
 
     }
 }

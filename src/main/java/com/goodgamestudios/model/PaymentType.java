@@ -1,5 +1,7 @@
 package com.goodgamestudios.model;
 
+import com.goodgamestudios.CoffeeSystemController;
+
 import java.util.Random;
 
 /**
@@ -17,7 +19,7 @@ public abstract class PaymentType
 
 	private void calcTotalSold()
 	{
-		CoffeeSystemResult.soldCoffeeTotal.incrementAndGet();
+		CoffeeSystemController.getInstance().getCoffeeSystemResult().getSoldCoffeeTotal().incrementAndGet();
 	}
 
 	protected abstract void calcSoldPerPayment();

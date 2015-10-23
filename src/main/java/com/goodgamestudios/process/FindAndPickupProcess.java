@@ -1,12 +1,13 @@
 package com.goodgamestudios.process;
 
-import com.goodgamestudios.model.CoffeeSystemResult;
+import com.goodgamestudios.CoffeeSystemController;
 import com.goodgamestudios.model.Programmer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Created by ybarvenko on 22.10.2015.
@@ -47,12 +48,15 @@ public class FindAndPickupProcess extends CoffeeSystemProcess {
     }
 
 
-    private void countDispensedCoffeeByMachine(Thread thread, String coffeeType){
-        Map<String, Integer> stringIntegerMap = CoffeeSystemResult.dispensedCoffeeByMachineMap.get(thread);
+    private void countDispensedCoffeeByMachine(Thread thread, String coffeeType)
+    {
+        ConcurrentMap<Thread, Map<String, Integer>> dispensedCoffeeByMachineMap = CoffeeSystemController.getInstance().getCoffeeSystemResult()
+                .getDispensedCoffeeByMachineMap();
+        Map<String, Integer> stringIntegerMap = dispensedCoffeeByMachineMap.get(thread);
         if(stringIntegerMap==null)
         {
             stringIntegerMap = new HashMap<>();
-            CoffeeSystemResult.dispensedCoffeeByMachineMap.put(thread,stringIntegerMap);
+            dispensedCoffeeByMachineMap.put(thread, stringIntegerMap);
         }
 
         Integer count = stringIntegerMap.get(coffeeType);

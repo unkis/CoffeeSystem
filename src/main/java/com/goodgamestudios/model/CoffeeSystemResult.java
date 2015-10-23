@@ -12,17 +12,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CoffeeSystemResult
 {
 
-	public static  AtomicInteger soldCoffeeTotal = new AtomicInteger();
-	public static  AtomicInteger soldCoffeeCash = new AtomicInteger();
-	public static  AtomicInteger soldCoffeeCredit = new AtomicInteger();
-	public static  ConcurrentMap<Thread,Map<String,Integer>> dispensedCoffeeByMachineMap = new ConcurrentHashMap<>();
+	private  AtomicInteger soldCoffeeTotal = new AtomicInteger();
+	private  AtomicInteger soldCoffeeCash = new AtomicInteger();
+	private  AtomicInteger soldCoffeeCredit = new AtomicInteger();
+	private  ConcurrentMap<Thread,Map<String,Integer>> dispensedCoffeeByMachineMap = new ConcurrentHashMap<>();
 
 
-
-
-
-
-	public static String getResultInfo()
+	public String getResultInfo()
 	{
 		final StringBuilder sb = new StringBuilder("CoffeeSystemResult");
 		sb.append("\n\tSold coffee total = ").append(soldCoffeeTotal.get()).
@@ -34,7 +30,7 @@ public class CoffeeSystemResult
 		return sb.toString();
 	}
 
-	private static String getResultInfoForDispendedCoffee() {
+	private String getResultInfoForDispendedCoffee() {
 		StringBuffer sb = new StringBuffer("\n\nDispensed by each coffee machine ");
 		Collection<Map<String, Integer>> machineResults =  dispensedCoffeeByMachineMap.values();
 		int coffeeMachineCount = 1;
@@ -61,5 +57,23 @@ public class CoffeeSystemResult
 		return sb.toString();
 	}
 
+	public AtomicInteger getSoldCoffeeTotal()
+	{
+		return soldCoffeeTotal;
+	}
 
+	public AtomicInteger getSoldCoffeeCash()
+	{
+		return soldCoffeeCash;
+	}
+
+	public AtomicInteger getSoldCoffeeCredit()
+	{
+		return soldCoffeeCredit;
+	}
+
+	public ConcurrentMap<Thread, Map<String, Integer>> getDispensedCoffeeByMachineMap()
+	{
+		return dispensedCoffeeByMachineMap;
+	}
 }

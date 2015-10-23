@@ -1,5 +1,7 @@
 package com.goodgamestudios.model;
 
+import com.goodgamestudios.CoffeeSystemController;
+
 /**
  * Created by unkiss on 22.10.15.
  */
@@ -15,7 +17,7 @@ public class CashPayment extends PaymentType
 	@Override
 	protected void calcSoldPerPayment()
 	{
-		CoffeeSystemResult.soldCoffeeCash.incrementAndGet();
+		CoffeeSystemController.getInstance().getCoffeeSystemResult().getSoldCoffeeCash().incrementAndGet();
 
 	}
 

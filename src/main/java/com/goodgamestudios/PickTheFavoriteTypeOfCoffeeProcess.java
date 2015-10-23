@@ -1,6 +1,6 @@
-package c.g;
+package com.goodgamestudios;
 
-import c.g.model.Programmer;
+import com.goodgamestudios.model.Programmer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +15,8 @@ public class PickTheFavoriteTypeOfCoffeeProcess implements Callable<Programmer> 
     public static final long PICK_THE_FAVORITE_TYPE_OF_COFFEE = 500;
 
     private Programmer programmer;
+
+
 
     public PickTheFavoriteTypeOfCoffeeProcess(Programmer programmer) {
         this.programmer = programmer;
@@ -33,6 +35,7 @@ public class PickTheFavoriteTypeOfCoffeeProcess implements Callable<Programmer> 
 
         PayProcess p = new PayProcess(programmer);
         Controller.payExecutor.submit(p);
+
 
         return programmer;
     }

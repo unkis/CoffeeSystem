@@ -1,6 +1,6 @@
-package c.g;
+package com.goodgamestudios;
 
-import c.g.model.SoldCoffee;
+import com.goodgamestudios.model.SoldCoffee;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.concurrent.ExecutionException;

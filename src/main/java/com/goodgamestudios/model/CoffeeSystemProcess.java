@@ -1,4 +1,4 @@
-package c.g.model;
+package com.goodgamestudios.model;
 
 import java.util.concurrent.Callable;
 

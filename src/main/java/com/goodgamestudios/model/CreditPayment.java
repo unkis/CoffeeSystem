@@ -1,27 +1,27 @@
-package c.g.model;
+package com.goodgamestudios.model;
 
 /**
  * Created by unkiss on 22.10.15.
  */
-public class CashPayment extends PaymentType
+public class CreditPayment extends PaymentType
 {
 
 	@Override
 	public String getName()
 	{
-		return "Cash";
+		return "Credit";
 	}
 
 	@Override
 	protected void calcSoldPerPayment()
 	{
-		SoldCoffee.soldCoffeeCash.incrementAndGet();
-
+		SoldCoffee.soldCoffeeCredit.incrementAndGet();
 	}
 
+	@Override
 	public long getDuration()
 	{
-		return 500;
+		return 250;
 	}
 
 

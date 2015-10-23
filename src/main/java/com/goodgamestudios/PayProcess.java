@@ -1,7 +1,7 @@
-package c.g;
+package com.goodgamestudios;
 
-import c.g.model.CoffeeSystemProcess;
-import c.g.model.Programmer;
+import com.goodgamestudios.model.CoffeeSystemProcess;
+import com.goodgamestudios.model.Programmer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

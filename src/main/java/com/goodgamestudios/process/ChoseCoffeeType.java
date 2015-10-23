@@ -1,4 +1,4 @@
-package c.g.model.process;
+package com.goodgamestudios.process;
 
 /**
  * Created by unkiss on 22.10.15.

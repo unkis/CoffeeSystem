@@ -3,28 +3,31 @@ package c.g.model;
 import java.util.Random;
 
 /**
- * Created by ybarvenko on 22.10.2015.
+ * Created by unkiss on 22.10.15.
  */
-public enum PaymentType {
+public abstract class PaymentType
+{
 
-    CREDIT(250), CASH(500);
+	public void paymentFinish(){
+		calcTotalSold();
+		calcSoldPerPayment();
+	}
 
-    private long duration;
+	public abstract String getName();
 
-    /**
-     *
-     * @param duration in ms
-     */
-    private PaymentType(long duration){
-        this.duration = duration;
-    }
+	private void calcTotalSold()
+	{
+		SoldCoffee.soldCoffeeTotal.incrementAndGet();
+	}
 
-    static PaymentType generateRandomPaymentType(Random r) {
-        return PaymentType.values()[r.nextInt(2)];
-    }
+	protected abstract void calcSoldPerPayment();
 
-    public long getDuration() {
-        return duration;
-    }
+	public abstract long getDuration();
 
+	public static PaymentType generateRandomPaymentType(final Random r)
+	{
+
+		return r.nextInt(2)==0?new CashPayment():new CreditPayment();
+
+	}
 }

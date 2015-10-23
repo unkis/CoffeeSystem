@@ -1,5 +1,6 @@
 package c.g;
 
+import c.g.model.SoldCoffee;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.concurrent.ExecutionException;
@@ -16,6 +17,10 @@ public class CoffeeSystemApplication {
 
         Controller c = new Controller();
         c.start();
+
+        System.out.println(SoldCoffee.getSoldInfo());
+
+
 
 
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by ybarvenko on 22.10.2015.
@@ -53,6 +52,9 @@ public class Controller {
         pickTheFavoriteTypeOfCoffeeExecutor.shutdown();
         payExecutor.shutdown();
         findAndPickupExecutor.shutdown();
+
+
+
 
     }
 

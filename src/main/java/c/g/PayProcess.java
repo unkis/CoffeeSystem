@@ -1,44 +1,54 @@
 package c.g;
 
+import c.g.model.CoffeeSystemProcess;
 import c.g.model.Programmer;
-import c.g.model.SoldCoffee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Created by ybarvenko on 22.10.2015.
  */
-public class PayProcess implements Runnable {
+public class PayProcess extends CoffeeSystemProcess
+{
 
     private static final Logger LOG = LoggerFactory.getLogger(PayProcess.class);
 
-    Programmer programmer;
-
-    public PayProcess(Programmer programmer) {
-        this.programmer = programmer;
+    public PayProcess(final Programmer programmer)
+    {
+        super(programmer);
     }
+
 
     @Override
-    public void run() {
+    public Programmer call() throws Exception
+    {
         pay();
+
+        return programmer;
+
     }
 
-    private void pay() {
+
+    protected void pay() {
 
         try {
 
             long duration = programmer.getPaymentType().getDuration();
 
-            LOG.debug(String.format("Programmer %s paying with %s ... (duration: %s ms.) ",programmer.getId(),programmer.getPaymentType().name(), duration));
+
+            LOG.debug(String.format("Programmer %s paying with %s ... (duration: %s ms.) ",programmer.getId(),programmer.getPaymentType().getName(), duration));
             Thread.sleep(duration);
 
             FindAndPickupProcess f = new FindAndPickupProcess(programmer);
             Controller.findAndPickupExecutorCompletionService.submit(f);
-            SoldCoffee.soldCoffeeTotal.incrementAndGet();
+            programmer.getPaymentType().paymentFinish();
 
         } catch (InterruptedException e) {
-            LOG.error("Error in pay-Method: "+programmer,e);
+            LOG.error("Error in pay process: "+programmer,e);
         }
 
     }
+
+
+
 }
